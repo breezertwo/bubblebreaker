@@ -4,6 +4,7 @@
     "target": "es5",
     /* Specify module code generation */
     "module": "esnext",
+    "downlevelIteration": true,
     /* Specify library files to be included in the compilation. */
     "lib": [
       "ESNext",
