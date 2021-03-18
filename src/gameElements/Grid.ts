@@ -35,8 +35,16 @@ export class Grid {
   }
 
   public deleteElement(col: number, row: number): GridType {
-    this.grid[col].delete(row.toString());
-    //this.grid[col].set("0", new BubbleField(col, 0, true));
+    // console.log("Delete from: " + col + "|" + row);
+    // Evtl auslagern in getRowKey()
+
+    const pos = row - (this.rows - this.grid[col].size);
+
+    let i = 0;
+    for (var key of this.grid[col].keys()) {
+      if (i === pos) this.grid[col].delete(key);
+      ++i;
+    }
 
     return this.grid;
   }

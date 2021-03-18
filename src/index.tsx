@@ -39,7 +39,7 @@ const App = (): JSX.Element => {
           <div className="collumn" id={colId.toString()} key={colId}>
             {Array.from(col.values()).map((bubble, i) => {
                return (
-                <Bubble onClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} id={(i).toString()} hasBubble={bubble.isEmpty} bgColor={bubble.color} key={i}></Bubble>
+                <Bubble onClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} id={((GRID_ROW_LENGTH - Array.from(col.values()).length) + i).toString()} hasBubble={bubble.isEmpty} bgColor={bubble.color} key={i}></Bubble>
               );
             })}
           </div>
