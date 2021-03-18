@@ -1,0 +1,9 @@
+@import './style/_base';
+
+html,
+body,
+div#root {
+  @include full-page;
+  margin: 0;
+  padding: 0;
+}
