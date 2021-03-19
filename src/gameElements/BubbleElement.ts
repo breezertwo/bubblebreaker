@@ -6,7 +6,7 @@ export interface Bubble {
   id: number;
 }
 
-export class BubbleField implements Bubble {
+export class BubbleElement implements Bubble {
   public isEmpty = false;
   public color: string;
   public col: number;

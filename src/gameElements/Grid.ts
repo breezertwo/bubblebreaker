@@ -1,6 +1,6 @@
-import { BubbleField } from "./BubbleField";
+import { BubbleElement } from "./BubbleElement";
 
-export type GridType = Map<string, BubbleField>[];
+export type GridType = Map<string, BubbleElement>[];
 
 export class Grid {
   private columns: number;
@@ -20,10 +20,10 @@ export class Grid {
       const grid = [];
 
       for (let col = 0; col < this.columns; col++) {
-        const map = new Map<string, BubbleField>();
+        const map = new Map<string, BubbleElement>();
 
         for (let row = 0; row < this.rows; row++) {
-          map.set(row.toString(), new BubbleField(col, row));
+          map.set(row.toString(), new BubbleElement(col, row));
         }
 
         grid.push(map);
@@ -41,15 +41,15 @@ export class Grid {
     const pos = row - (this.rows - this.grid[col].size);
 
     let i = 0;
-    for (var key of this.grid[col].keys()) {
+    for (const key of this.grid[col].keys()) {
       if (i === pos) this.grid[col].delete(key);
-      ++i;
+      i++;
     }
 
     return this.grid;
   }
 
   public getGrid(): GridType {
-    return this.grid;
+    return this.grid ? this.grid : this.makeGrid();
   }
 }

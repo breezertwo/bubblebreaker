@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "run-s clean",
-    "build": "parcel build src/index.html --no-source-maps",
+    "build": "npm run clean && parcel build src/index.html --no-source-maps",
     "clean": "rimraf ./dist",
     "start": "parcel src/index.html --open"
   },

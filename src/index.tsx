@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom'
 import './assets/index.scss';
 
 import Bubble from './components/bubble';
-import { BubbleField } from './gameElements/BubbleField';
 import { Grid, GridType } from './gameElements/Grid';
 
 type HTMLElementEvent<T extends HTMLElement> = Event & {
@@ -33,7 +32,7 @@ const App = (): JSX.Element => {
   }
 
   return (
-    <div ref={container} className="mainContainer">
+    <div ref={container} className="gridContainer">
       {grid.map((col, colId) => {
         return (
           <div className="collumn" id={colId.toString()} key={colId}>
