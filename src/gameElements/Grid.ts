@@ -11,11 +11,11 @@ export class Grid {
   constructor(columns: number, rows: number) {
     this.columns = columns;
     this.rows = rows;
-    this.grid = this.makeGrid();
+    this.grid = this.getGrid();
   }
 
-  public makeGrid(): GridType {
-    if (!this.grid) {
+  public getGrid(drop?: boolean): GridType {
+    if (!this.grid || drop) {
       console.log("Generating new grid...");
       const grid = [];
 
@@ -23,7 +23,7 @@ export class Grid {
         const map = new Map<string, BubbleElement>();
 
         for (let row = 0; row < this.rows; row++) {
-          map.set(row.toString(), new BubbleElement(col, row));
+          map.set(row.toString(), new BubbleElement(col * this.rows + row + 1));
         }
 
         grid.push(map);
@@ -36,20 +36,33 @@ export class Grid {
 
   public deleteElement(col: number, row: number): GridType {
     // console.log("Delete from: " + col + "|" + row);
-    // Evtl auslagern in getRowKey()
 
-    const pos = row - (this.rows - this.grid[col].size);
-
-    let i = 0;
-    for (const key of this.grid[col].keys()) {
-      if (i === pos) this.grid[col].delete(key);
-      i++;
-    }
+    this.grid[col].delete(this.getRowKey(col, row));
 
     return this.grid;
   }
 
-  public getGrid(): GridType {
-    return this.grid ? this.grid : this.makeGrid();
+  public deleteElementByKey(col: number, key: string): GridType {
+    this.grid[col].delete(key);
+
+    return this.grid;
+  }
+
+  public getElement(col: number, row: number): BubbleElement | undefined {
+    // console.log("Get from: " + col + "|" + row);
+
+    return this.grid[col].get(this.getRowKey(col, row));
+  }
+
+  public getRowKey(col: number, row: number): string {
+    const pos = row - (this.rows - this.grid[col].size);
+
+    let i = 0;
+    for (const key of this.grid[col].keys()) {
+      if (i === pos) return key;
+      i++;
+    }
+
+    return (-1).toString();
   }
 }

@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export interface BubbleProps {
   onClick: (event: React.MouseEvent) => void;
   id: string,
-  hasBubble: boolean,
   bgColor: string
 }
  
-const Bubble: React.FC<BubbleProps> = ({ onClick, id, hasBubble, bgColor }): JSX.Element => {
+const Bubble: React.FC<BubbleProps> = ({ onClick, id, bgColor }): JSX.Element => {
 
   return ( 
-    <div style={!hasBubble ? { backgroundColor: bgColor } : {}} onClick={onClick} id={id} className={!hasBubble ? 'bubble' : 'bubbleEmpty'}></div>
+    <div style={{ backgroundColor: bgColor }} onClick={onClick} id={id} className={'bubble'} />
   );
 }
 

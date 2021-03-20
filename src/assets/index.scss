@@ -4,21 +4,27 @@ html,
 body,
 div#root {
   @include full-page;
+  font-family: "Roboto";
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: gray;
+  flex-direction: column;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 424px;
 }
 
 .gridContainer {
   border: 1px solid #2d2d2d;
-  color: #fff;
   background: #2d2d2d;
   margin: 12px;
   display: flex;
-  width: 400px;
   height: 600px;
   justify-content: space-between;
 }
@@ -45,5 +51,37 @@ div#root {
   flex-direction: column;
 }
 
+.score,
+.value {
+  margin-left: 5px;
+  padding: 5px;
+}
 
+.value {
+  background-color: chocolate;
+  border-radius: 20%;
+}
 
+.scoreBoard,
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0 12px;
+}
+
+.scoreBoard {
+  font-size: 25px;
+}
+
+.rf {
+  background: center / contain no-repeat url("../assets/circular-arrow.png");
+  width: 16px;
+  height: 16px;
+  transition: transform .2s; /* Animation */
+
+}
+
+.rf:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
