@@ -27,6 +27,7 @@ div#root {
   display: flex;
   height: 600px;
   justify-content: space-between;
+  backdrop-filter: blur(20px);
 }
 
 .bubble {
@@ -97,7 +98,7 @@ div#root {
 }
 
 .scoreBoard {
-  font-size: 25px;
+  font-size: min(5vw, 25px);
 }
 
 .rf {
@@ -110,4 +111,18 @@ div#root {
 
 .rf:hover {
   transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.blur{
+  filter: blur(5px);
+}
+
+.gameOver {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -117%);
+  z-index: 2;
+  font-size: 6vw;
+  font-weight: bold;
 }

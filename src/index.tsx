@@ -1,6 +1,6 @@
 // https://en.wikipedia.org/wiki/Jawbreaker_(Windows_Mobile_game)
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom'
 
 import './assets/index.scss';
@@ -10,6 +10,7 @@ import Bubble from './components/bubble';
 import { Grid, GridType } from './gameElements/Grid';
 import Score from './components/score';
 import Toolbar from './components/toolbar';
+import GameoverScreen from './components/gameover';
 
 type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T; 
@@ -26,10 +27,10 @@ let toDelete: (number | string)[][];
 
 const App: React.FC = (): JSX.Element => {
 
-  const container = useRef(null)
   const [grid, setGrid] = useState<GridType>(gridInstance.getGrid());
   const [score, setScore] = useState<number>(0);
   const [value, setValue] = useState<number>(0);
+  const [gameOver, setGameOver] = useState<boolean>(false);
 
   function onClick(e: HTMLElementEvent<HTMLElement>): void {
 
@@ -39,7 +40,7 @@ const App: React.FC = (): JSX.Element => {
 
     // If bubbles selected & not the first click --> Remove selection
     if (bubble?.color.indexOf('white') === -1 && toDelete) {
-      getMatchingElements(toDelete[0][0] as number, toDelete[0][1] as number, 'white', oldColor)
+      gridInstance.getMatchingElements(toDelete[0][0] as number, toDelete[0][1] as number, 'white', oldColor)
       setGrid([...gridInstance.getGrid()]);
       isFirstClick = true;
     }
@@ -47,7 +48,7 @@ const App: React.FC = (): JSX.Element => {
     // Frist click --> Make selection of neigbours with same color
     if(isFirstClick) {
       oldColor = bubble!.color;
-      toDelete = getMatchingElements(col, row, oldColor, 'white')
+      toDelete = gridInstance.getMatchingElements(col, row, oldColor, 'white')
       if (toDelete.length > 1) {
         setValue(toDelete.length * ( toDelete.length - 1));
         setGrid([...gridInstance.getGrid()]);
@@ -65,6 +66,9 @@ const App: React.FC = (): JSX.Element => {
       setScore(score + value);
       setValue(0);
       setGrid([...gridInstance.getGrid()]);
+      if (gridInstance.runGameEndCheck()) {
+        setGameOver(true)
+      }
       isFirstClick = true;
     }
   }
@@ -73,58 +77,29 @@ const App: React.FC = (): JSX.Element => {
     setGrid(gridInstance.getGrid(true))
     setValue(0);
     setScore(0);
+    setGameOver(false)
   }
 
   return (
     <div className="mainContainer">
-    <Score score={score} value={value} />
-    <div ref={container} className="gridContainer">
-      {grid.map((col, colId) => {
-        return (
-          <div className="collumn" id={colId.toString()} key={colId}>
-            {Array.from(col.values()).map((bubble, rowId) => {
-               return (
-                <Bubble onClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} id={((GRID_ROW_LENGTH - Array.from(col.values()).length) + rowId).toString()} bgColor={bubble.color} key={rowId}></Bubble>
-              );
-            })}
-          </div>
-        );
-      })}
-    </div>
-    <Toolbar onRefreshClick={handleRefresh}></Toolbar>
+      <Score score={score} value={value} />
+      <div className="gridContainer">
+        {grid.map((col, colId) => {
+          return (
+            <div className="collumn" id={colId.toString()} key={colId}>
+              {Array.from(col.values()).map((bubble, rowId) => {
+                return (
+                  <Bubble onClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} id={((GRID_ROW_LENGTH - Array.from(col.values()).length) + rowId).toString()} bgColor={bubble.color} key={rowId}></Bubble>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+      <GameoverScreen show={gameOver}/>
+      <Toolbar onRefreshClick={handleRefresh}></Toolbar>
     </div>
   )
-}
-
-function getMatchingElements(col: number, row: number, oldColor: string, newColor: string, deleteArray?: (number | string)[][]): (number | string)[][] {
-
-  if(!deleteArray) deleteArray = [];
-
-  if(gridInstance.getElement(col, row)?.color === oldColor){
-      deleteArray.push([col, row, gridInstance.getRowKey(col, row)])
-      gridInstance.getElement(col, row)!.color = newColor
-
-      if(col + 1 < GRID_COL_LENGTH){
-        getMatchingElements(col + 1, row,  oldColor, newColor, deleteArray);
-      }
-
-      if(col - 1 > -1) {
-        getMatchingElements(col - 1, row,  oldColor, newColor, deleteArray);
-      }
-
-      if(row + 1 < GRID_ROW_LENGTH) {
-        getMatchingElements(col, row + 1, oldColor, newColor, deleteArray);
-      }
-
-      if(row - 1 > -1) {
-        getMatchingElements(col, row - 1,  oldColor, newColor, deleteArray);
-      }
-  } else {
-    return deleteArray;
-  }
-
-  return deleteArray;
-
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -51,7 +51,8 @@ export class Grid {
   public getElement(col: number, row: number): BubbleElement | undefined {
     // console.log("Get from: " + col + "|" + row);
 
-    return this.grid[col].get(this.getRowKey(col, row));
+    if (this.grid[col]) return this.grid[col].get(this.getRowKey(col, row));
+    return undefined;
   }
 
   public getRowKey(col: number, row: number): string {
@@ -64,5 +65,55 @@ export class Grid {
     }
 
     return (-1).toString();
+  }
+
+  public getMatchingElements(
+    col: number,
+    row: number,
+    oldColor: string,
+    newColor: string,
+    deleteArray?: (number | string)[][]
+  ): (number | string)[][] {
+    if (!deleteArray) deleteArray = [];
+
+    if (this.getElement(col, row)?.color === oldColor) {
+      deleteArray.push([col, row, this.getRowKey(col, row)]);
+      this.getElement(col, row)!.color = newColor;
+
+      if (col + 1 < this.columns)
+        this.getMatchingElements(col + 1, row, oldColor, newColor, deleteArray);
+
+      if (col - 1 > -1)
+        this.getMatchingElements(col - 1, row, oldColor, newColor, deleteArray);
+
+      if (row + 1 < this.rows)
+        this.getMatchingElements(col, row + 1, oldColor, newColor, deleteArray);
+
+      if (row - 1 > -1)
+        this.getMatchingElements(col, row - 1, oldColor, newColor, deleteArray);
+    } else {
+      return deleteArray;
+    }
+
+    return deleteArray;
+  }
+
+  public runGameEndCheck(): boolean {
+    for (let r = this.rows - 1; r > -1; r--) {
+      for (let c = 0; c < this.columns; c++) {
+        const bubble = this.getElement(c, r);
+        if (bubble) {
+          if (this.getElement(c + 1, r))
+            if (this.getElement(c + 1, r)?.color === bubble.color) return false;
+          if (this.getElement(c, r + 1))
+            if (this.getElement(c, r + 1)?.color === bubble.color) return false;
+          if (this.getElement(c - 1, r))
+            if (this.getElement(c - 1, r)?.color === bubble.color) return false;
+          if (this.getElement(c, r - 1))
+            if (this.getElement(c, r - 1)?.color === bubble.color) return false;
+        }
+      }
+    }
+    return true;
   }
 }
