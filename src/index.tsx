@@ -11,6 +11,7 @@ import { Grid, GridType } from './gameElements/Grid';
 import Score from './components/score';
 import Toolbar from './components/toolbar';
 import GameoverScreen from './components/gameover';
+import GameGrid from './components/grid';
 
 type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T; 
@@ -83,19 +84,7 @@ const App: React.FC = (): JSX.Element => {
   return (
     <div className="mainContainer">
       <Score score={score} value={value} />
-      <div className="gridContainer">
-        {grid.map((col, colId) => {
-          return (
-            <div className="collumn" id={colId.toString()} key={colId}>
-              {Array.from(col.values()).map((bubble, rowId) => {
-                return (
-                  <Bubble onClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} id={((GRID_ROW_LENGTH - Array.from(col.values()).length) + rowId).toString()} bgColor={bubble.color} key={rowId}></Bubble>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
+      <GameGrid grid={grid} onBubbleClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} gridSize={[GRID_COL_LENGTH, GRID_ROW_LENGTH]}></GameGrid>
       <GameoverScreen show={gameOver}/>
       <Toolbar onRefreshClick={handleRefresh}></Toolbar>
     </div>

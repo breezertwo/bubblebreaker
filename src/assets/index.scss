@@ -29,11 +29,15 @@ div#root {
   justify-content: space-between;
 }
 
-.bubble {
-  background: center / contain no-repeat url("../assets/bubble.png");
+.bubble,
+.bubblePlaceholder {
   width: 25px;
   height: 25px;
   margin: 2.5px;
+}
+
+.bubble {
+  background: center / contain no-repeat url("../assets/bubble.png");
   border-radius: 50%;
 }
 
@@ -54,7 +58,8 @@ div#root {
     height: 450px;
   }
   
-  .bubble {
+  .bubble,
+  .bubblePlaceholder {
     width: 18.75px;
     height: 18.75px;
     margin: 1.875px;
@@ -70,7 +75,8 @@ div#root {
     height: 300px;
   }
   
-  .bubble {
+  .bubble,
+  .bubblePlaceholder {
     width: 12.5px;
     height: 12.5px;
     margin: 1.25px;
@@ -104,12 +110,12 @@ div#root {
   background: center / contain no-repeat url("../assets/circular-arrow.png");
   width: 16px;
   height: 16px;
-  transition: transform .2s; /* Animation */
+  transition: transform .2s;
 
 }
 
 .rf:hover {
-  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.5); 
 }
 
 .blur{
