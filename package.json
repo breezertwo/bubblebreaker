@@ -1,7 +1,7 @@
 {
-  "name": "08_bubblebreaker",
-  "version": "1.0.0",
-  "description": "",
+  "name": "bubblebreaker",
+  "version": "0.1.0",
+  "description": "A Jawbreaker for Windows Mobile clone",
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && parcel build src/index.html --no-source-maps",
@@ -9,7 +9,7 @@
     "start": "parcel src/index.html --open"
   },
   "keywords": [],
-  "author": "",
+  "author": "breezertwo",
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^17.0.3",

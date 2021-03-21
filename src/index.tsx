@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import './assets/index.scss';
 import "@fontsource/roboto";
 
-import Bubble from './components/bubble';
+import packageJSON from './../package.json'
 import { Grid, GridType } from './gameElements/Grid';
 import Score from './components/score';
 import Toolbar from './components/toolbar';
@@ -82,12 +82,15 @@ const App: React.FC = (): JSX.Element => {
   }
 
   return (
+    <>
     <div className="mainContainer">
       <Score score={score} value={value} />
       <GameGrid grid={grid} onBubbleClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} gridSize={[GRID_COL_LENGTH, GRID_ROW_LENGTH]}></GameGrid>
       <GameoverScreen show={gameOver}/>
       <Toolbar onRefreshClick={handleRefresh}></Toolbar>
     </div>
+    <div className="footer"><p>Version {packageJSON.version} by <a target="_blank" href="https://github.com/breezertwo/">{packageJSON.author}</a> | 2021</p></div>
+    </>
   )
 }
 

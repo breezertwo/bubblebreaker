@@ -5,6 +5,7 @@
     /* Specify module code generation */
     "module": "esnext",
     "downlevelIteration": true,
+    "resolveJsonModule": true,
     /* Specify library files to be included in the compilation. */
     "lib": [
       "ESNext",
