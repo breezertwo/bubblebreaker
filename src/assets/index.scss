@@ -37,18 +37,48 @@ div#root {
   border-radius: 50%;
 }
 
-.bubbleEmpty {
-  width: 25px;
-  height: 25px;
-  margin: 2.5px;
-}
-
 .collumn {
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .mainContainer {
+    width: 324px;
+  }
+  
+  .gridContainer {
+    height: 450px;
+  }
+  
+  .bubble {
+    width: 18.75px;
+    height: 18.75px;
+    margin: 1.875px;
+  }
+  
+
+}
+
+@media (max-width: 400px) {
+  .mainContainer {
+    width: 224px;
+  }
+  
+  .gridContainer {
+    height: 300px;
+  }
+  
+  .bubble {
+    width: 12.5px;
+    height: 12.5px;
+    margin: 1.25px;
+  }
+  
+
 }
 
 .score,
