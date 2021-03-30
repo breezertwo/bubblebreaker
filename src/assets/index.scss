@@ -66,7 +66,7 @@ div#root {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 320px) {
   .mainContainer {
     width: 224px;
   }
@@ -98,24 +98,27 @@ div#root {
 .toolbar {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
   padding: 0 12px;
 }
 
 .scoreBoard {
   font-size: min(5vw, 25px);
+  justify-content: flex-end;
 }
 
-.rf {
-  background: center / contain no-repeat url("../assets/circular-arrow.png");
-  width: 16px;
-  height: 16px;
+.toolbar {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
   transition: transform .2s;
-
 }
 
-.rf:hover {
-  transform: scale(1.5); 
+.icon:hover {
+  transform: scale(1.25); 
 }
 
 .blur{
@@ -148,4 +151,3 @@ div#root {
 .footer p {
   font-size: 15px;
 }
-

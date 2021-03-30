@@ -105,12 +105,12 @@ export class Grid {
         if (bubble) {
           if (this.getElement(c + 1, r))
             if (this.getElement(c + 1, r)?.color === bubble.color) return false;
-          if (this.getElement(c, r + 1))
-            if (this.getElement(c, r + 1)?.color === bubble.color) return false;
-          if (this.getElement(c - 1, r))
-            if (this.getElement(c - 1, r)?.color === bubble.color) return false;
           if (this.getElement(c, r - 1))
             if (this.getElement(c, r - 1)?.color === bubble.color) return false;
+          if (this.getElement(c - 1, r))
+            if (this.getElement(c - 1, r)?.color === bubble.color) return false;
+          if (this.getElement(c, r + 1))
+            if (this.getElement(c, r + 1)?.color === bubble.color) return false;
         }
       }
     }
