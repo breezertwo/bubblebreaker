@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -14,12 +13,13 @@ const styles = (theme: Theme) =>
     root: {
       margin: 0,
       padding: theme.spacing(2),
+      'background-color': 'darkgrey;'
     },
     closeButton: {
       position: 'absolute',
       right: theme.spacing(1),
       top: theme.spacing(1),
-      color: theme.palette.grey[500],
+      color: theme.palette.grey[900],
     },
   });
 
@@ -46,6 +46,7 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
 const DialogContent = withStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(2),
+    'background-color': 'darkgrey;'
   },
 }))(MuiDialogContent);
 
@@ -70,9 +71,15 @@ const HelpDialog: React.FC = (): JSX.Element => {
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
+            The objective is to align similar colored bubbles to form large blocks of bubbles before bursting them. 
+            The more bubbles you have in a block before bursting them, the greater the amount of points you will receive. 
+            To burst a bubble, the bubble must at least be connected to one other similar colored bubble on the grid.
+          </Typography>
+          <Typography gutterBottom>
+            Tap once to highlight the block of bubbles. Select an other block to deselect the previous one. Select the highlighted block again to burst the bubbles.
+          </Typography>
+          <Typography gutterBottom>
+            The number in the orange field represents the value of this block. (Value is calculated: x * (x - 1))
           </Typography>
         </DialogContent>
       </Dialog>
