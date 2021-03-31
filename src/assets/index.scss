@@ -141,8 +141,7 @@ div#root {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  }
+}
 
 .footer a {
   color: black;
@@ -150,4 +149,10 @@ div#root {
 
 .footer p {
   font-size: 15px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
