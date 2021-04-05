@@ -86,7 +86,7 @@ const App: React.FC = (): JSX.Element => {
     <div className="mainContainer">
       <Score score={score} value={value} />
       <GameGrid grid={grid} onBubbleClick={e => onClick(e as unknown as HTMLElementEvent<HTMLElement>)} gridSize={[GRID_COL_LENGTH, GRID_ROW_LENGTH]}></GameGrid>
-      <GameoverScreen show={gameOver}/>
+      <GameoverScreen show={true} grid={gridInstance.getGrid()} gridId={"XXXXXX"} score={score}/>
       <Toolbar onRefreshClick={handleRefresh}></Toolbar>
     </div>
     <div className="footer"><p>Version {packageJSON.version} by <a target="_blank" href="https://github.com/breezertwo/">{packageJSON.author}</a> | 2021</p></div>

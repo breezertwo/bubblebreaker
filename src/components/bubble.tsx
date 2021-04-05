@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface BubbleProps {
-  onClick: (event: React.MouseEvent) => void;
+  onClick?: (event: React.MouseEvent) => void;
   id: string,
   bgColor: string
 }

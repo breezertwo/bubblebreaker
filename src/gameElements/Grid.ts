@@ -1,3 +1,4 @@
+import { GridClassKey } from "@material-ui/core";
 import { BubbleElement } from "./BubbleElement";
 
 export type GridType = Map<string, BubbleElement>[];
@@ -31,6 +32,11 @@ export class Grid {
       this.grid = grid;
     }
 
+    return this.grid;
+  }
+
+  public setGrid(grid: GridType): GridType {
+    this.grid = grid;
     return this.grid;
   }
 

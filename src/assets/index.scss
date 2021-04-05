@@ -29,6 +29,11 @@ div#root {
   justify-content: space-between;
 }
 
+.gameOver {
+  height: 600px;
+  width: 424px;
+}
+
 .bubble,
 .bubblePlaceholder {
   width: 25px;
@@ -47,40 +52,6 @@ div#root {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-}
-
-@media (max-width: 600px) {
-  .mainContainer {
-    width: 324px;
-  }
-  
-  .gridContainer {
-    height: 450px;
-  }
-  
-  .bubble,
-  .bubblePlaceholder {
-    width: 18.75px;
-    height: 18.75px;
-    margin: 1.875px;
-  }
-}
-
-@media (max-width: 320px) {
-  .mainContainer {
-    width: 224px;
-  }
-  
-  .gridContainer {
-    height: 300px;
-  }
-  
-  .bubble,
-  .bubblePlaceholder {
-    width: 12.5px;
-    height: 12.5px;
-    margin: 1.25px;
-  }
 }
 
 .score,
@@ -127,12 +98,30 @@ div#root {
 
 .gameOver {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -117%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   z-index: 2;
+}
+
+.gameOverText {
   font-size: 6vw;
   font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+  color: antiquewhite;     
+}
+
+.submitContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  background-color: lightslategrey;
+  width: 70%;
+  border-radius: 2%;
+  padding: 35px;
 }
 
 .footer{
@@ -149,4 +138,64 @@ div#root {
 
 .footer p {
   font-size: 15px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  
+}
+
+@media (max-width: 600px) {
+  .mainContainer,
+  .gameOver {
+    width: 324px;
+  }
+  
+  .gridContainer,
+  .gameOver {
+    height: 450px;
+  }
+  
+  .bubble,
+  .bubblePlaceholder {
+    width: 18.75px;
+    height: 18.75px;
+    margin: 1.875px;
+  }
+
+  .gameOverText {
+    font-size: 9vw;
+  }
+
+}
+
+@media (max-width: 320px) {
+  .mainContainer,
+  .gameOver {
+    width: 224px;
+  }
+  
+  .gridContainer,
+  .gameOver {
+    height: 300px;
+  }
+  
+  .bubble,
+  .bubblePlaceholder {
+    width: 12.5px;
+    height: 12.5px;
+    margin: 1.25px;
+  }
+
+  .gameOverText {
+    font-size: 12vw;
+  }
 }

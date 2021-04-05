@@ -3,10 +3,9 @@ import { GridType } from '~/gameElements/Grid';
 import Bubble from './bubble';
 
 export interface GridProps {
+  onBubbleClick?: (event: React.MouseEvent) => void;
   grid: GridType
-  onBubbleClick: (event: React.MouseEvent) => void;
   gridSize: number[];
-
 }
  
 const GameGrid: React.FC<GridProps> = ({ grid, onBubbleClick, gridSize }): JSX.Element => {

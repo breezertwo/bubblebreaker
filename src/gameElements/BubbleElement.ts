@@ -1,4 +1,4 @@
-export interface Bubble {
+interface Bubble {
   color: string;
   id: number;
 }
@@ -9,8 +9,10 @@ export class BubbleElement implements Bubble {
   public color: string;
   public id: number;
 
-  constructor(id: number) {
+  constructor(id: number, color?: string) {
     this.id = id;
-    this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+    this.color = color
+      ? color
+      : this.colors[Math.floor(Math.random() * this.colors.length)];
   }
 }

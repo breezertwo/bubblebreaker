@@ -11,7 +11,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ onRefreshClick }): JSX.Element => {
 
   return (
     <div className="toolbar">
-      <HelpDialog />
+      <div className="left">
+        <HelpDialog />
+      </div>
       <IconButton aria-label="close" className="icon" onClick={onRefreshClick}>
           <RefreshIcon />
       </IconButton>
