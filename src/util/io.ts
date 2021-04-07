@@ -23,7 +23,6 @@ export function getBase64GridString(grid: GridType): string {
 
 export function loadGridFromBase64String(baseString: string): GridType {
   const jsonGrid = JSON.parse(atob(baseString));
-  console.log(jsonGrid);
   const grid = [];
 
   for (let col = 0; col < jsonGrid.length; col++) {
