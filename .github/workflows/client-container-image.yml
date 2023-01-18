@@ -41,8 +41,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
-          context: packages/client
-          file: packages/client/Dockerfile
+          file: Dockerfile
           push: true
           tags: |
             ghcr.io/breezertwo/bubblebreaker:${{ steps.package-version.outputs.current-version}}
