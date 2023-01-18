@@ -3,9 +3,9 @@
   "version": "0.1.2",
   "description": "A Jawbreaker for Windows Mobile clone",
   "scripts": {
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./build",
     "start": "parcel src/index.html --open",
-    "prod": "parcel build src/index.html --no-source-maps",
+    "prod": "parcel build src/index.html --no-source-maps --dist-dir build",
     "build": "yarn clean && yarn prod"
   },
   "keywords": [],
