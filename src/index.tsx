@@ -89,7 +89,7 @@ const App: React.FC = (): JSX.Element => {
       <GameoverScreen show={gameOver}/>
       <Toolbar onRefreshClick={handleRefresh}></Toolbar>
     </div>
-    <div className="footer"><p>Version {packageJSON.version} by <a target="_blank" href="https://github.com/breezertwo/">{packageJSON.author}</a> | 2021</p></div>
+    <div className="footer"><p>Version {packageJSON.version} by <a target="_blank" href="https://github.com/breezertwo/">{packageJSON.author}</a> | 2023</p></div>
     </>
   )
 }
