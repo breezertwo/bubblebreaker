@@ -2,11 +2,11 @@
   "name": "bubblebreaker",
   "version": "0.1.2",
   "description": "A Jawbreaker for Windows Mobile clone",
-  "main": "index.js",
   "scripts": {
-    "build": "npm run clean && parcel build src/index.html --no-source-maps",
     "clean": "rimraf ./dist",
-    "start": "parcel src/index.html --open"
+    "start": "parcel src/index.html --open",
+    "prod": "parcel build src/index.html --no-source-maps",
+    "build": "yarn clean && yarn prod"
   },
   "keywords": [],
   "author": "breezertwo",
