@@ -24,8 +24,6 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
-        with:
-          path: packages/client
 
       - name: Login to image repository
         uses: docker/login-action@v2
