@@ -50,7 +50,7 @@ const DialogContent = withStyles((theme: Theme) => ({
   },
 }))(MuiDialogContent);
 
-const HelpDialog: React.FC = (): JSX.Element => {
+const HelpDialog: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -71,18 +71,16 @@ const HelpDialog: React.FC = (): JSX.Element => {
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            The objective is to align similar colored bubbles to form large blocks of bubbles before
-            bursting them. The more bubbles you have in a block before bursting them, the greater
-            the amount of points you will receive. To burst a bubble, the bubble must at least be
-            connected to one other similar colored bubble on the grid.
+            The objective is to align similar colored bubbles to form large blocks of bubbles before bursting them. The more bubbles you
+            have in a block before bursting them, the greater the amount of points you will receive. To burst a bubble, the bubble must at
+            least be connected to one other similar colored bubble on the grid.
           </Typography>
           <Typography gutterBottom>
-            Tap once to highlight the block of bubbles. Select an other block to deselect the
-            previous one. Select the highlighted block again to burst the bubbles.
+            Tap once to highlight the block of bubbles. Select an other block to deselect the previous one. Select the highlighted block
+            again to burst the bubbles.
           </Typography>
           <Typography gutterBottom>
-            The number in the orange field represents the value of this block. (Value is calculated:
-            x * (x - 1))
+            The number in the orange field represents the value of this block. (Value is calculated: x * (x - 1))
           </Typography>
         </DialogContent>
       </Dialog>

@@ -4,10 +4,8 @@ export interface BubbleProps {
   bgColor: string;
 }
 
-const Bubble: React.FC<BubbleProps> = ({ onClick, id, bgColor }): JSX.Element => {
-  return (
-    <div style={{ backgroundColor: bgColor }} onClick={onClick} id={id} className={'bubble'} />
-  );
+const Bubble: React.FC<BubbleProps> = ({ onClick, id, bgColor }) => {
+  return <div style={{ backgroundColor: bgColor }} onClick={onClick} id={id} className={'bubble'} />;
 };
 
 export default Bubble;

@@ -1,7 +1,5 @@
-// https://en.wikipedia.org/wiki/Jawbreaker_(Windows_Mobile_game)
-
-import { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode, useState } from 'react';
+import { createRoot } from 'react-dom/client';
 
 import './assets/index.scss';
 import '@fontsource/roboto';
@@ -26,7 +24,7 @@ let isFirstClick = true;
 let oldColor = '';
 let toDelete: (number | string)[][];
 
-const App: React.FC = (): JSX.Element => {
+const App: React.FC = () => {
   const [grid, setGrid] = useState<GridType>(gridInstance.getGrid());
   const [score, setScore] = useState<number>(0);
   const [value, setValue] = useState<number>(0);
@@ -39,12 +37,7 @@ const App: React.FC = (): JSX.Element => {
 
     // If bubbles selected & not the first click --> Remove selection
     if (bubble?.color.indexOf('white') === -1 && toDelete) {
-      gridInstance.getMatchingElements(
-        toDelete[0][0] as number,
-        toDelete[0][1] as number,
-        'white',
-        oldColor,
-      );
+      gridInstance.getMatchingElements(toDelete[0][0] as number, toDelete[0][1] as number, 'white', oldColor);
       setGrid([...gridInstance.getGrid()]);
       isFirstClick = true;
     }
@@ -102,11 +95,15 @@ const App: React.FC = (): JSX.Element => {
           <a target='_blank' href='https://github.com/breezertwo/'>
             {packageJSON.author}
           </a>{' '}
-          | 2023
+          | 2026
         </p>
       </div>
     </>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

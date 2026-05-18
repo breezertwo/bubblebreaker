@@ -6,7 +6,7 @@ export interface ToolbarProps {
   onRefreshClick: () => void;
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ onRefreshClick }): JSX.Element => {
+const Toolbar: React.FC<ToolbarProps> = ({ onRefreshClick }) => {
   return (
     <div className='toolbar'>
       <HelpDialog />

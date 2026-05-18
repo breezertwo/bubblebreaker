@@ -3,7 +3,7 @@ export interface ScoreProps {
   value: number;
 }
 
-const Score: React.FC<ScoreProps> = ({ score, value }): JSX.Element => {
+const Score: React.FC<ScoreProps> = ({ score, value }) => {
   return (
     <div className='scoreBoard'>
       <div className='score'>Score: {score}</div>

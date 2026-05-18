@@ -1,5 +1,5 @@
-import { GridType } from '~/gameElements/Grid';
 import Bubble from './bubble';
+import type { GridType } from '../gameElements/Grid';
 
 export interface GridProps {
   grid: GridType;
@@ -7,7 +7,7 @@ export interface GridProps {
   gridSize: number[];
 }
 
-const GameGrid: React.FC<GridProps> = ({ grid, onBubbleClick, gridSize }): JSX.Element => {
+const GameGrid: React.FC<GridProps> = ({ grid, onBubbleClick, gridSize }) => {
   return (
     <div className='gridContainer'>
       {grid.map((col, colId) => {

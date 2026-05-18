@@ -80,13 +80,11 @@ export class Grid {
       deleteArray.push([col, row, this.getRowKey(col, row)]);
       this.getElement(col, row)!.color = newColor;
 
-      if (col + 1 < this.columns)
-        this.getMatchingElements(col + 1, row, oldColor, newColor, deleteArray);
+      if (col + 1 < this.columns) this.getMatchingElements(col + 1, row, oldColor, newColor, deleteArray);
 
       if (col - 1 > -1) this.getMatchingElements(col - 1, row, oldColor, newColor, deleteArray);
 
-      if (row + 1 < this.rows)
-        this.getMatchingElements(col, row + 1, oldColor, newColor, deleteArray);
+      if (row + 1 < this.rows) this.getMatchingElements(col, row + 1, oldColor, newColor, deleteArray);
 
       if (row - 1 > -1) this.getMatchingElements(col, row - 1, oldColor, newColor, deleteArray);
     } else {
@@ -101,14 +99,10 @@ export class Grid {
       for (let c = 0; c < this.columns; c++) {
         const bubble = this.getElement(c, r);
         if (bubble) {
-          if (this.getElement(c + 1, r))
-            if (this.getElement(c + 1, r)?.color === bubble.color) return false;
-          if (this.getElement(c, r - 1))
-            if (this.getElement(c, r - 1)?.color === bubble.color) return false;
-          if (this.getElement(c - 1, r))
-            if (this.getElement(c - 1, r)?.color === bubble.color) return false;
-          if (this.getElement(c, r + 1))
-            if (this.getElement(c, r + 1)?.color === bubble.color) return false;
+          if (this.getElement(c + 1, r)) if (this.getElement(c + 1, r)?.color === bubble.color) return false;
+          if (this.getElement(c, r - 1)) if (this.getElement(c, r - 1)?.color === bubble.color) return false;
+          if (this.getElement(c - 1, r)) if (this.getElement(c - 1, r)?.color === bubble.color) return false;
+          if (this.getElement(c, r + 1)) if (this.getElement(c, r + 1)?.color === bubble.color) return false;
         }
       }
     }
