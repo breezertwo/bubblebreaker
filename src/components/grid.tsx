@@ -5,11 +5,12 @@ export interface GridProps {
   grid: GridType;
   onBubbleClick: (event: React.MouseEvent) => void;
   gridSize: number[];
+  blurred?: boolean;
 }
 
-const GameGrid: React.FC<GridProps> = ({ grid, onBubbleClick, gridSize }) => {
+const GameGrid: React.FC<GridProps> = ({ grid, onBubbleClick, gridSize, blurred }) => {
   return (
-    <div className='gridContainer'>
+    <div className={blurred ? 'gridContainer blur' : 'gridContainer'}>
       {grid.map((col, colId) => {
         return col.size > 0 ? (
           <div className='collumn' id={colId.toString()} key={colId}>

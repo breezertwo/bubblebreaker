@@ -84,6 +84,7 @@ const App: React.FC = () => {
           grid={grid}
           onBubbleClick={(e) => onClick(e as unknown as HTMLElementEvent<HTMLElement>)}
           gridSize={[GRID_COL_LENGTH, GRID_ROW_LENGTH]}
+          blurred={gameOver}
         ></GameGrid>
         <GameoverScreen show={gameOver} />
         <Toolbar onRefreshClick={handleRefresh}></Toolbar>
