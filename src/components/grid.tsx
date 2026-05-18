@@ -3,7 +3,7 @@ import type { GridType } from '../gameElements/Grid';
 
 export interface GridProps {
   grid: GridType;
-  onBubbleClick: (event: React.MouseEvent) => void;
+  onBubbleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
   gridSize: number[];
   blurred?: boolean;
 }
