@@ -1,23 +1,19 @@
-import React from 'react';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import { IconButton } from '@material-ui/core';
+import { IoRefresh } from 'react-icons/io5';
+import HelpDialog from './help-dialog';
 
-import HelpDialog from './helpDialog';
 export interface ToolbarProps {
   onRefreshClick: () => void;
 }
- 
-const Toolbar: React.FC<ToolbarProps> = ({ onRefreshClick }): JSX.Element => {
 
+const Toolbar: React.FC<ToolbarProps> = ({ onRefreshClick }) => {
   return (
-    <div className="toolbar">
+    <div className='toolbar'>
       <HelpDialog />
-      <IconButton aria-label="close" className="icon" onClick={onRefreshClick}>
-          <RefreshIcon />
-      </IconButton>
-    </div> 
+      <button type='button' aria-label='refresh' className='iconButton' onClick={onRefreshClick}>
+        <IoRefresh className='icon' />
+      </button>
+    </div>
   );
-}
+};
 
- 
 export default Toolbar;

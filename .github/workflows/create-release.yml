@@ -1,0 +1,176 @@
+name: Create Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  create-release:
+    if: github.event.pull_request.merged == true && (startsWith(github.event.pull_request.title, 'release:') || startsWith(github.event.pull_request.title, 'hotfix:'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Get version from package.json
+        id: get-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+          echo "raw_version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: check-tag
+        run: |
+          if git rev-parse "${{ steps.get-version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.get-version.outputs.version }} already exists"
+            exit 1
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get last tag
+        id: get-last-tag
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            echo "last_tag=" >> $GITHUB_OUTPUT
+            echo "No previous tags found"
+          else
+            echo "last_tag=$LAST_TAG" >> $GITHUB_OUTPUT
+            echo "Last tag: $LAST_TAG"
+          fi
+      - name: Generate changelog
+        id: changelog
+        run: |
+          if [ -z "${{ steps.get-last-tag.outputs.last_tag }}" ]; then
+            COMMITS=$(git log --pretty=format:"%s" --no-merges)
+          else
+            COMMITS=$(git log ${{ steps.get-last-tag.outputs.last_tag }}..HEAD --pretty=format:"%s" --no-merges)
+          fi
+
+          # Initialize changelog sections
+          FEATURES=""
+          FIXES=""
+          DOCS=""
+          STYLE=""
+          REFACTOR=""
+          TECH=""
+          TEST=""
+          CHORE=""
+
+          # Process each commit
+          while IFS= read -r commit; do
+            if [[ $commit =~ ^feat ]]; then
+              FEATURES="${FEATURES}- ${commit}\n"
+            elif [[ $commit =~ ^fix ]]; then
+              FIXES="${FIXES}- ${commit}\n"
+            elif [[ $commit =~ ^docs ]]; then
+              DOCS="${DOCS}- ${commit}\n"
+            elif [[ $commit =~ ^style ]]; then
+              STYLE="${STYLE}- ${commit}\n"
+            elif [[ $commit =~ ^refactor ]]; then
+              REFACTOR="${REFACTOR}- ${commit}\n"
+            elif [[ $commit =~ ^tech ]]; then
+              TECH="${TECH}- ${commit}\n"
+            elif [[ $commit =~ ^test ]]; then
+              TEST="${TEST}- ${commit}\n"
+            elif [[ $commit =~ ^chore ]]; then
+              CHORE="${CHORE}- ${commit}\n"
+            fi
+          done <<< "$COMMITS"
+
+          # Build changelog
+          CHANGELOG=""
+
+          if [ -n "$FEATURES" ]; then
+            CHANGELOG="${CHANGELOG}## 🚀 Features\n${FEATURES}\n"
+          fi
+
+          if [ -n "$FIXES" ]; then
+            CHANGELOG="${CHANGELOG}## 🐛 Bug Fixes\n${FIXES}\n"
+          fi
+
+          if [ -n "$TECH" ]; then
+            CHANGELOG="${CHANGELOG}## ⚡ Tech Improvements\n${TECH}\n"
+          fi
+
+          if [ -n "$REFACTOR" ]; then
+            CHANGELOG="${CHANGELOG}## ♻️ Code Refactoring\n${REFACTOR}\n"
+          fi
+
+          if [ -n "$DOCS" ]; then
+            CHANGELOG="${CHANGELOG}## 📚 Documentation\n${DOCS}\n"
+          fi
+
+          if [ -n "$STYLE" ]; then
+            CHANGELOG="${CHANGELOG}## 💎 Styles\n${STYLE}\n"
+          fi
+
+          if [ -n "$TEST" ]; then
+            CHANGELOG="${CHANGELOG}## 🧪 Tests\n${TEST}\n"
+          fi
+
+          if [ -n "$CHORE" ]; then
+            CHANGELOG="${CHANGELOG}## 🔧 Chores\n${CHORE}\n"
+          fi
+
+          if [ -z "$CHANGELOG" ]; then
+            CHANGELOG="No notable changes in this release."
+          fi
+
+          # Save changelog to output (properly escaped for GitHub Actions)
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Determine release name
+        id: release-name
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          VERSION: ${{ steps.get-version.outputs.version }}
+        run: |
+          if [[ "$PR_TITLE" == release:* ]]; then
+            # Extract everything after "release: "
+            RELEASE_NAME="${PR_TITLE#release: }"
+            echo "name=Release $VERSION - $RELEASE_NAME" >> $GITHUB_OUTPUT
+          elif [[ "$PR_TITLE" == hotfix:* ]]; then
+            # Extract everything after "hotfix: "
+            HOTFIX_NAME="${PR_TITLE#hotfix: }"
+            echo "name=Hotfix $VERSION - $HOTFIX_NAME" >> $GITHUB_OUTPUT
+          else
+            echo "name=Release $VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get-version.outputs.version }}
+          name: ${{ steps.release-name.outputs.name }}
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+
+            ---
+
+            **Full Changelog**: https://github.com/${{ github.repository }}/compare/${{ steps.get-last-tag.outputs.last_tag }}...${{ steps.get-version.outputs.version }}
+          draft: false
+          prerelease: false
+
+      - name: Summary
+        run: |
+          echo "🎉 Successfully created release ${{ steps.get-version.outputs.version }}"
+          echo "📋 Release name: ${{ steps.release-name.outputs.name }}"
+          echo "🔗 Release URL: https://github.com/${{ github.repository }}/releases/tag/${{ steps.get-version.outputs.version }}"

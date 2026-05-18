@@ -1,4 +1,4 @@
-import { BubbleElement } from "./BubbleElement";
+import { BubbleElement } from './BubbleElement';
 
 export type GridType = Map<string, BubbleElement>[];
 
@@ -16,7 +16,7 @@ export class Grid {
 
   public getGrid(drop?: boolean): GridType {
     if (!this.grid || drop) {
-      console.log("Generating new grid...");
+      console.log('Generating new grid...');
       const grid = [];
 
       for (let col = 0; col < this.columns; col++) {
@@ -72,7 +72,7 @@ export class Grid {
     row: number,
     oldColor: string,
     newColor: string,
-    deleteArray?: (number | string)[][]
+    deleteArray?: (number | string)[][],
   ): (number | string)[][] {
     if (!deleteArray) deleteArray = [];
 
@@ -80,17 +80,13 @@ export class Grid {
       deleteArray.push([col, row, this.getRowKey(col, row)]);
       this.getElement(col, row)!.color = newColor;
 
-      if (col + 1 < this.columns)
-        this.getMatchingElements(col + 1, row, oldColor, newColor, deleteArray);
+      if (col + 1 < this.columns) this.getMatchingElements(col + 1, row, oldColor, newColor, deleteArray);
 
-      if (col - 1 > -1)
-        this.getMatchingElements(col - 1, row, oldColor, newColor, deleteArray);
+      if (col - 1 > -1) this.getMatchingElements(col - 1, row, oldColor, newColor, deleteArray);
 
-      if (row + 1 < this.rows)
-        this.getMatchingElements(col, row + 1, oldColor, newColor, deleteArray);
+      if (row + 1 < this.rows) this.getMatchingElements(col, row + 1, oldColor, newColor, deleteArray);
 
-      if (row - 1 > -1)
-        this.getMatchingElements(col, row - 1, oldColor, newColor, deleteArray);
+      if (row - 1 > -1) this.getMatchingElements(col, row - 1, oldColor, newColor, deleteArray);
     } else {
       return deleteArray;
     }
@@ -103,14 +99,10 @@ export class Grid {
       for (let c = 0; c < this.columns; c++) {
         const bubble = this.getElement(c, r);
         if (bubble) {
-          if (this.getElement(c + 1, r))
-            if (this.getElement(c + 1, r)?.color === bubble.color) return false;
-          if (this.getElement(c, r - 1))
-            if (this.getElement(c, r - 1)?.color === bubble.color) return false;
-          if (this.getElement(c - 1, r))
-            if (this.getElement(c - 1, r)?.color === bubble.color) return false;
-          if (this.getElement(c, r + 1))
-            if (this.getElement(c, r + 1)?.color === bubble.color) return false;
+          if (this.getElement(c + 1, r)) if (this.getElement(c + 1, r)?.color === bubble.color) return false;
+          if (this.getElement(c, r - 1)) if (this.getElement(c, r - 1)?.color === bubble.color) return false;
+          if (this.getElement(c - 1, r)) if (this.getElement(c - 1, r)?.color === bubble.color) return false;
+          if (this.getElement(c, r + 1)) if (this.getElement(c, r + 1)?.color === bubble.color) return false;
         }
       }
     }

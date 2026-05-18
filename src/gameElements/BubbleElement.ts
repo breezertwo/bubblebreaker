@@ -4,7 +4,7 @@ export interface Bubble {
 }
 
 export class BubbleElement implements Bubble {
-  private colors = ["#f102f3", "#f1f808", "#0103f5", "#02f108", "#e20002"];
+  private colors = ['#f102f3', '#f1f808', '#0103f5', '#02f108', '#e20002'];
 
   public color: string;
   public id: number;
