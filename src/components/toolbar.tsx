@@ -1,7 +1,7 @@
-import RefreshIcon from '@material-ui/icons/Refresh';
-import { IconButton } from '@material-ui/core';
+import { IoRefresh } from 'react-icons/io5';
 
 import HelpDialog from './helpDialog';
+
 export interface ToolbarProps {
   onRefreshClick: () => void;
 }
@@ -10,9 +10,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ onRefreshClick }) => {
   return (
     <div className='toolbar'>
       <HelpDialog />
-      <IconButton aria-label='close' className='icon' onClick={onRefreshClick}>
-        <RefreshIcon />
-      </IconButton>
+      <button type='button' aria-label='refresh' className='iconButton' onClick={onRefreshClick}>
+        <IoRefresh className='icon' />
+      </button>
     </div>
   );
 };

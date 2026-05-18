@@ -1,4 +1,12 @@
-@import './style/_base';
+@use '@fontsource/roboto';
+
+@mixin full-page {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 
 html,
 body,
@@ -111,14 +119,61 @@ div#root {
   align-items: center;
 }
 
+.iconButton {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   transition: transform 0.2s;
 }
 
-.icon:hover {
+.iconButton:hover .icon {
   transform: scale(1.25);
+}
+
+.helpDialog {
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  background-color: darkgrey;
+  color: black;
+  max-width: 500px;
+  width: 90%;
+}
+
+.helpDialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.helpDialog__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+}
+
+.helpDialog__content {
+  padding: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+  p {
+    margin: 0 0 0.35em;
+  }
 }
 
 .blur {

@@ -2,7 +2,6 @@ import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import './assets/index.scss';
-import '@fontsource/roboto';
 
 import packageJSON from './../package.json';
 import { Grid, GridType } from './gameElements/Grid';
