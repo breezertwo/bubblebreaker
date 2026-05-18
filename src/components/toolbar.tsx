@@ -1,6 +1,5 @@
 import { IoRefresh } from 'react-icons/io5';
-
-import HelpDialog from './helpDialog';
+import HelpDialog from './help-dialog';
 
 export interface ToolbarProps {
   onRefreshClick: () => void;

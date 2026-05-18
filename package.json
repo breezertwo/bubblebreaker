@@ -8,7 +8,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt src vite.config.ts index.html",
