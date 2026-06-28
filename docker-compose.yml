@@ -1,0 +1,13 @@
+services:
+  bubblebreaker_web:
+    build: .
+    image: bubblebreaker:0.2.0
+    container_name: bubblebreaker_web
+    restart: always
+    networks:
+      - bubblebreaker-network
+
+networks:
+  bubblebreaker-network:
+    name: bubblebreaker-network
+    driver: bridge
